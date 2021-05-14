@@ -1,0 +1,9 @@
+/*
+    Gets Longitude Latitude and compass direction from GPS and sends it on a file to Github Public.
+
+wetransfer
+filehosting.org
+
+
+
+*/
