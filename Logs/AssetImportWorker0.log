@@ -99,3 +99,21 @@ Total: 2.982700 ms (FindLiveObjects: 0.290800 ms CreateObjectMapping: 0.170500 m
 
 AssetImportParameters requested are different than current active one (requested -> active):
   custom:graphics/normal-map-encoding: 01000000000000000000000000000000 -> 02000000000000000000000000000000
+========================================================================
+Received Prepare
+Refreshing native plugins compatible for Editor in 4.98 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 27 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 64.6 MB.
+System memory in use after: 64.8 MB.
+
+Unloading 27 unused Assets to reduce memory usage. Loaded Objects now: 4037.
+Total: 2.652000 ms (FindLiveObjects: 0.249800 ms CreateObjectMapping: 0.161700 ms MarkObjects: 2.210400 ms  DeleteObjects: 0.029700 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 305.619681 seconds.
+  path: Assets/Photon/PhotonUnityNetworking/Resources/PhotonServerSettings.asset
+  artifactKey: Guid(1a8bca7d4f520f24fb9297380f1ecb08) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Photon/PhotonUnityNetworking/Resources/PhotonServerSettings.asset using Guid(1a8bca7d4f520f24fb9297380f1ecb08) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0b3b53b575534e8c1ee8841a91e71290') in 0.025919 seconds 
+AssetImportWorkerClient::OnTransportError - code=2 error=End of file
