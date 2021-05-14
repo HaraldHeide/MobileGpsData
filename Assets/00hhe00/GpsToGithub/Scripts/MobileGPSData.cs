@@ -79,12 +79,12 @@ public class MobileGPSData : MonoBehaviourPunCallbacks
 
         while (true)
         {
-            s1 = gpsLocationCompass.Latitude.ToString("0.00000");
-            s2 = gpsLocationCompass.Longitude.ToString("0.00000");
+            s1 = gpsLocationCompass.Latitude.ToString("0.000000");
+            s2 = gpsLocationCompass.Longitude.ToString("0.000000");
             s3 = gpsLocationCompass.Altitude.ToString("0.00");
-            s4 = gpsLocationCompass.TrueHeading.ToString("0,00");
+            s4 = gpsLocationCompass.TrueHeading.ToString("0.00");
             Message.text = "Longitude: " + s1 + "\n" + "Latitude: " + s2 + "\n" + "Altitude: " + s3 + "\n" + "Heading: " + s4;
-            myGpsData = s1 + ";" + s2 + ";" + s3 + s4 + ";";
+            myGpsData = s1 + ";" + s2 + ";" + s3 + ";" + s4 + ";";
             photonView.RPC("ShareGpsData", RpcTarget.AllBuffered, myGpsData);
             yield return new WaitForSeconds(30f);
         }
