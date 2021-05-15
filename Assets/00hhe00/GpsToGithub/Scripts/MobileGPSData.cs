@@ -43,12 +43,13 @@ public class MobileGPSData : MonoBehaviourPunCallbacks
         }
     }
 
+    #region PUN Callbacks
     public override void OnConnectedToMaster()
     {
         if (isConnecting)
         {
-            Message.text = "OnConnectedToMaster";
-
+            //Message.text = "OnConnectedToMaster";
+            PhotonNetwork.NickName = "GpsDataServer";
             // #Critical: The first we try to do is to join a potential existing room. If there is, good, else, we'll be called back with OnJoinRandomFailed()
             PhotonNetwork.JoinRandomRoom();
         }
@@ -61,17 +62,23 @@ public class MobileGPSData : MonoBehaviourPunCallbacks
 
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
-        Message.text = "OnJoinRandomFailed() ";
+        //Message.text = "OnJoinRandomFailed() ";
 
         // #Critical: we failed to join a random room, maybe none exists or they are all full. No worries, we create a new room.
-        PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = 20 });
+        PhotonNetwork.CreateRoom("GpsRoom", new RoomOptions { MaxPlayers = 20 });
     }
 
     public override void OnJoinedRoom()
     {
+        //Message.text = "JoinedRoom: " + PhotonNetwork.NickName;
         StartCoroutine(Get_GPS());
     }
 
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        //Message.text = "Player " + PhotonNetwork.NickName + " Entered. Players in room: " + PhotonNetwork.CurrentRoom.PlayerCount;
+    }
+    #endregion
 
     IEnumerator Get_GPS()
     {
@@ -86,7 +93,7 @@ public class MobileGPSData : MonoBehaviourPunCallbacks
             Message.text = "Longitude: " + s1 + "\n" + "Latitude: " + s2 + "\n" + "Altitude: " + s3 + "\n" + "Heading: " + s4;
             myGpsData = s1 + ";" + s2 + ";" + s3 + ";" + s4 + ";";
             photonView.RPC("ShareGpsData", RpcTarget.AllBuffered, myGpsData);
-            yield return new WaitForSeconds(30f);
+            yield return new WaitForSeconds(10f);
         }
     }
 
