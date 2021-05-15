@@ -303,9 +303,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 509367042}
+  - component: {fileID: 509367045}
   - component: {fileID: 509367043}
   - component: {fileID: 509367044}
-  - component: {fileID: 509367045}
   m_Layer: 0
   m_Name: Mobile GPS Data
   m_TagString: Untagged

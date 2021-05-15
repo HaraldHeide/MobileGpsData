@@ -92,7 +92,7 @@ public class MobileGPSData : MonoBehaviourPunCallbacks
             s4 = gpsLocationCompass.TrueHeading.ToString("0.00");
             Message.text = "Longitude: " + s1 + "\n" + "Latitude: " + s2 + "\n" + "Altitude: " + s3 + "\n" + "Heading: " + s4;
             myGpsData = s1 + ";" + s2 + ";" + s3 + ";" + s4 + ";";
-            photonView.RPC("ShareGpsData", RpcTarget.AllBuffered, myGpsData);
+            photonView.RPC("ShareGpsData", RpcTarget.All, myGpsData);
             yield return new WaitForSeconds(10f);
         }
     }
