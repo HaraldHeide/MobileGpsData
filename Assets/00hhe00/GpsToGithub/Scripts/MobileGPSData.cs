@@ -11,6 +11,12 @@ public class MobileGPSData : MonoBehaviourPunCallbacks
 {
     [SerializeField]
     private TMP_Text Message;
+    [SerializeField]
+    private TMP_Text UpdateFrequency;
+    [SerializeField]
+    private TMP_Text HeadingTara;
+    [SerializeField]
+    private TMP_Text HeightTara;
 
     private GPSLocationCompass gpsLocationCompass => GetComponent<GPSLocationCompass>();
 
@@ -18,11 +24,63 @@ public class MobileGPSData : MonoBehaviourPunCallbacks
 
     private bool isConnecting = false;
 
+    #region UI
+    private int uiUpdateFrequence = 30;
+    private int uiHeadingTara = 0;
+    private int uiHeightTara = 0;
+
+    public void uiUpdateFrequence_Decrease()//Called from UI Button
+    {
+        uiUpdateFrequence -= 5;
+        if (uiUpdateFrequence < 0) uiUpdateFrequence = 0;
+        UpdateFrequency.text = uiUpdateFrequence.ToString();
+    }
+    public void uiUpdateFrequence_Increase()//Called from UI Button
+    {
+        uiUpdateFrequence += 5;
+        UpdateFrequency.text = uiUpdateFrequence.ToString();
+    }
+    public void uiHeadingTara_Decrease()//Called from UI Button
+    {
+        uiHeadingTara -= 1;
+        HeadingTara.text = uiHeadingTara.ToString();
+    }
+    public void uiHeadingTara_Increase()//Called from UI Button
+    {
+        uiHeadingTara += 1;
+        HeadingTara.text = uiHeadingTara.ToString();
+    }
+    public void uiHeightTara_Decrease()//Called from UI Button
+    {
+        uiHeightTara -= 1;
+        HeightTara.text = uiHeightTara.ToString();
+    }
+    public void uiHeightTara_Increase()//Called from UI Button
+    {
+        uiHeightTara += 1;
+        HeightTara.text = uiHeightTara.ToString();
+    }
+
+
+
+    #endregion
+
     void Start()
     {
         gpsLocationCompass.Start_GPS();
         gpsLocationCompass.Start_Compass();
         Connect_PUN2();
+
+        #region Parameters"
+        uiUpdateFrequence = 20;
+        uiHeadingTara = 0;
+        uiHeightTara = 0;
+
+        UpdateFrequency.text = uiUpdateFrequence.ToString();
+        HeadingTara.text = uiHeadingTara.ToString();
+        HeightTara.text = uiHeightTara.ToString();
+        #endregion
+
     }
 
     #region PUN2
@@ -88,12 +146,17 @@ public class MobileGPSData : MonoBehaviourPunCallbacks
         {
             s1 = gpsLocationCompass.Latitude.ToString("0.000000");
             s2 = gpsLocationCompass.Longitude.ToString("0.000000");
-            s3 = gpsLocationCompass.Altitude.ToString("0.00");
-            s4 = gpsLocationCompass.TrueHeading.ToString("0.00");
+
+            float height = gpsLocationCompass.Altitude + uiHeightTara;
+            s3 = height.ToString("0.00");
+
+            float heading = gpsLocationCompass.TrueHeading + uiHeadingTara;
+            s4 = heading.ToString("0.00");
+
             Message.text = "Longitude: " + s1 + "\n" + "Latitude: " + s2 + "\n" + "Altitude: " + s3 + "\n" + "Heading: " + s4;
             myGpsData = s1 + ";" + s2 + ";" + s3 + ";" + s4 + ";";
             photonView.RPC("ShareGpsData", RpcTarget.All, myGpsData);
-            yield return new WaitForSeconds(10f);
+            yield return new WaitForSeconds(uiUpdateFrequence);
         }
     }
 
